@@ -1,17 +1,14 @@
 import {Component} from "react";
+import RowProduct from './RowProduct';
 
-interface Product {
-    id:number,
-    name:string,
-    price:number,
-    description?:string,
-}
-class TableForm extends Component<Product>{ 
-    static defaultProps ={
-        id:0,
-        name:"xxx",
-        price:1000,
-        description:"zzz",
+
+class TableForm extends Component<any>{ 
+
+    constructor(props:any){
+        super(props);
+        this.state = {
+
+        }
     }
     render(){
         return(
@@ -26,15 +23,9 @@ class TableForm extends Component<Product>{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>{this.props.id}</td>
-                            <td>{this.props.name}</td>
-                            <td>{this.props.price}</td>
-                            <td className="actions">
-                                <a href="javascript:void(0)" title="Sửa" ><i className="fa fa-pencil" aria-hidden="true"></i></a>
-                                <a href="javascript:void(0)" title="Xóa"><i className="fa fa-trash-o" aria-hidden="true"></i></a>
-                            </td>
-                        </tr>
+                    <RowProduct id = {1} name = "aaaz11z11" price = {1000}/>
+                    <RowProduct id = {2} name = "xxx" price = {1020}/>
+
                     </tbody>
                 </table>
             </div>
