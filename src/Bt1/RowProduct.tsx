@@ -19,8 +19,8 @@ function RowProduct(product:Product) {
                 <td>{product.name}</td>
                 <td>{product.price}</td>
                 <td className="actions">
-                    <a href="javascript:void(0)" title="Sửa" ><i className="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href="javascript:void(0)" title="Xóa"><i className="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a  title="Sửa" ><i className="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a  title="Xóa"><i className="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         )

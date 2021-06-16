@@ -11,6 +11,25 @@ class TableForm extends Component<any>{
         }
     }
     render(){
+        let listPro = [
+            {
+                id:1,
+                name:"sp1",
+                price:1000,
+            }, {
+                id:2,
+                name:"sp2",
+                price:2000,
+            }, {
+                id:3,
+                name:"sp3",
+                price:3000,
+            }, {
+                id:4,
+                name:"sp3",
+                price:30,
+            }
+        ]
         return(
             <div className="col-6">
                 <table className="table">
@@ -23,8 +42,13 @@ class TableForm extends Component<any>{
                         </tr>
                     </thead>
                     <tbody>
-                    <RowProduct id = {1} name = "aaaz11z11" price = {1000}/>
-                    <RowProduct id = {2} name = "xxx" price = {1020}/>
+                        {
+                            listPro.map((item)=>{
+                                return (item.price > 100)?<RowProduct id = {item.id}  key = {item.id} name = {item.name} price = {item.price}/>:''
+                            })
+                        }
+                    {/* <RowProduct id = {1} name = "aaaz11z11" price = {1000}/> */}
+                    {/* <RowProduct id = {2} name = "xxx" price = {1020}/> */}
 
                     </tbody>
                 </table>
