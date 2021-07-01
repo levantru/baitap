@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { v4 } from "uuid";
+import { v4 } from "uuid";///npm install uuidv4
 import {ProductState} from "./ProductState";
 
 interface State {
     id : string;
     name : string;
-    description : string;
     price? : number;
+    description : string;
 }
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
     setProduct?: any;
 }
 
-class NewProduct extends Component<Props,State> {
+class NewProductComponent extends Component<Props,State> {
     constructor(props: Props){
         super(props)
         this.state = {
@@ -25,35 +25,41 @@ class NewProduct extends Component<Props,State> {
             price : 0,
         };
     }
-    onChange = (event: {target: { name:any;value:any;}}) =>{
-        this.setState({[event.target.name]: event.target.value} as Pick<State, keyof State>)
-    };
-    saveProduct = () =>{
+    
+    componentWillReceiveProps(nextProps :any) {
         this.setState({
-            id:v4()
+            name: nextProps.product.name,
+            price: nextProps.product.price,
+            description: nextProps.product.description,
         })
+    }
+       
+    onChange = (event: { target: { name: any; value: any; }; }) => {
+        this.setState({ [event.target.name]:  event.target.value } as Pick<State, keyof State>);
+    };
+    
+    saveProduct = () => {
+        this.setState({
+            id : v4()
+        });
         this.props.addProduct(this.state);
     }
-    // static getDerivedStateFromProps(nextProps:any, prevState:any){
-    //     if(nextProps.product.id!==prevState.product.id){
-    //       return { 
-    //         name:nextProps.product.name,
-    //         price:nextProps.product.price,
-    //         description:nextProps.product.description,
-    //       };
-    //    }
-    //     return null;
-    //   }
-      
     
-    componentWillReceiveProps(nexProps:any){
+    clearData = ()=> {
         this.setState({
-            name:nexProps.product.name,
-            price:nexProps.product.price,
-            description:nexProps.product.description,
-
-        })
+            price : Number.NaN,
+            name : "",
+            description : "",
+        });
     }
+
+    setProduct = (product : any) =>{
+        this.setState({
+            id: product.id,
+            name: product.name,
+        });
+    }
+
     render() {
         return (
             <div>
@@ -66,8 +72,8 @@ class NewProduct extends Component<Props,State> {
                         <label>Name :</label>
                     </div>
                     <div className="form-group col-md-6">
-                        <input onChange = {this.onChange} id="productName" type="text" name="name" placeholder="" value ={this.state.name} className="form-control" />
-                        <input id="productId" value ={this.props.product.id}  type="hidden" />
+                        <input id="productName" type="text" name="name" placeholder="" value ={this.state.name} onChange = {this.onChange} className="form-control" />
+                        <input id="productId" value ={this.props.product.id} type="hidden" />
                     </div>
                 </div>
                 <div className="row">
@@ -75,7 +81,7 @@ class NewProduct extends Component<Props,State> {
                         <label>Price :</label>
                     </div>
                     <div className="form-group col-md-6">
-                        <input  onChange = {this.onChange} type="number" id="productPrice" name="price" value = {this.state.price} placeholder="" className="form-control" />
+                        <input type="number" id="productPrice" name="price" value = {this.state.price} onChange = {this.onChange} placeholder="" className="form-control" />
                     </div>
                 </div>
                 <div className="row">
@@ -83,12 +89,12 @@ class NewProduct extends Component<Props,State> {
                         <label>Description :</label>
                     </div>
                     <div className="form-group col-md-6">
-                        <textarea onChange = {this.onChange} id="productDescription" name = "description" value = {this.state.description} className="form-control"></textarea>
+                        <textarea id="productDescription" name = "description" value = {this.state.description} onChange = {this.onChange} className="form-control"></textarea>
                     </div>
                 </div>
                 <div className="form-group">
-                    <button onClick = {this.saveProduct} type="button" className="btn btn-primary" >Save</button>
-                    <button type="button" className="btn btn-secondary">Clear</button>
+                    <button type="button" className="btn btn-primary" onClick = {this.saveProduct}>Save</button>
+                    <button type="button" className="btn btn-secondary" onClick = {this.clearData}>Clear</button>
                 </div>
             </form>
             </div>
@@ -96,4 +102,4 @@ class NewProduct extends Component<Props,State> {
         );
      }
 }
-export default NewProduct;
+export default NewProductComponent;

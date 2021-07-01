@@ -6,8 +6,8 @@ interface Props {
     price : number;
     index : number;
     description? : string;
-    deleteProduct?:any;
-    editProduct?:any;
+    deleteProduct? : any;
+    editProduct? : any;
 }
 class Product extends Component<Props> {
     constructor(props: Props){
@@ -15,28 +15,28 @@ class Product extends Component<Props> {
         this.state = {
         };
     }
-    
-    editProduct = () =>{
+    deleteProduct = () =>{
+        this.props.deleteProduct(this.props.id);
+    }
+
+    editProduct = () => {
         this.props.editProduct({
             id : this.props.id,
             description : this.props.description,
             name : this.props.name,
             price : this.props.price,
-        })
-       
+        });
     }
-    deleteProduct = () =>{
-        this.props.deleteProduct(this.props.id)
-    }
+
     render() {
         return (
             <tr>
-                <th>{this.props.index}</th>
+                <th scope="row">{this.props.index}</th>
                 <td>{this.props.name}</td>
                 <td>{this.props.price}</td>
                 <td>
-                    <button onClick = {this.editProduct}  type="button" className="btn btn-primary">Edit</button>
-                    <button onClick = {this.deleteProduct} type="button" className="btn btn-danger">Delete</button>
+                    <button type="button" className="btn btn-primary" onClick = {this.editProduct}>Edit</button>
+                    <button type="button" className="btn btn-danger" onClick = {this.deleteProduct}>Delete</button>
                 </td>
             </tr>
         );
